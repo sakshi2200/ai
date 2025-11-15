@@ -1,1 +1,67 @@
+q1
+# Solve TWO + TWO = FOUR (cryptarithmetic) by brute force
+from itertools import permutations
 
+def solve_cryptarithm():
+    letters = ('T','W','O','F','U','R')
+    digits = '0123456789'
+    solutions = []
+    for perm in permutations(digits, len(letters)):
+        mapping = dict(zip(letters, perm))
+        # Leading letters cannot be '0'
+        if mapping['T'] == '0' or mapping['F'] == '0':
+            continue
+        # Construct numbers
+        TWO = int(mapping['T'] + mapping['W'] + mapping['O'])
+        FOUR = int(mapping['F'] + mapping['O'] + mapping['U'] + mapping['R'])
+        # Check equation TWO + TWO = FOUR
+        if TWO + TWO == FOUR:
+            solutions.append((mapping, TWO, FOUR))
+    return solutions
+
+if __name__ == "__main__":
+    solutions = solve_cryptarithm()
+    if not solutions:
+        print("No solutions found.")
+    else:
+        print(f"Found {len(solutions)} solution(s):\n")
+        for mapping, TWO, FOUR in solutions:
+            print("Mapping:")
+            for letter in sorted(mapping):
+                print(f"  {letter} -> {mapping[letter]}")
+            print(f"  {TWO} + {TWO} = {FOUR}\n")
+
+
+
+
+q2
+
+ print("Simple Question and Answering Program") 
+print("=====================================")
+ print(" You may ask any one of these questions") 
+print("Hi")
+ print("How are you?") 
+print("Are you working?") 
+print("What is your name?")
+ print("what did you do yesterday?") 
+print("Quit")
+ while True:
+ question = input("Enter one question from above list:") 
+question = question.lower()
+ if question in ['hi']:
+ print("Hello")
+ elif question in ['how are you?','how do you do?']: 
+print("I am fine")
+ elif question in ['are you working?','are you doing any job?']: 
+print("yes. I'am working in KLU")
+ elif question in ['what is your name?']: 
+print("My name is Emilia") 
+priyanka sawale 
+name=input("Enter your name?")
+ print("Nice name and Nice meeting you",name) 
+elif question in ['what did you do yesterday?']:
+ print("I saw Bahubali 5 times")
+ elif question in ['quit']: 
+break
+ else:
+ print("I don't understand what you said")
