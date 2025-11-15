@@ -1,1 +1,63 @@
+q1
 
+ # Program to sort alphabetically the words form a string provided by the user 
+# change this value for a different result
+ my_str = "Hello this Is an Example With cased letters" 
+# uncomment to take input from the user
+ #my_str = input("Enter a string: ")
+ priyanka sawale 
+# breakdown the string into a list of words
+AI Lab Manual
+ lOMoARcPSD|32114230
+ words = my_str.split() 
+#print(words)
+ # sort the list 
+words.sort()
+ # display the sorted words 
+print("The sorted words are:") 
+for word in words:
+ print(word)
+
+
+
+q2
+
+# Cryptarithm: CROSS + ROADS = DANGER
+# Letters: C R O S A D N G E
+
+from itertools import permutations
+
+def solve_cross_roads():
+    letters = ('C','R','O','S','A','D','N','G','E')
+    digits = '0123456789'
+    solutions = []
+
+    for perm in permutations(digits, len(letters)):
+        m = dict(zip(letters, perm))
+
+        # Leading letters cannot be zero
+        if m['C'] == '0' or m['R'] == '0' or m['D'] == '0':
+            continue
+
+        CROSS = int(m['C'] + m['R'] + m['O'] + m['S'] + m['S'])
+        ROADS = int(m['R'] + m['O'] + m['A'] + m['D'] + m['S'])
+        DANGER = int(m['D'] + m['A'] + m['N'] + m['G'] + m['E'] + m['R'])
+
+        if CROSS + ROADS == DANGER:
+            solutions.append((m, CROSS, ROADS, DANGER))
+
+    return solutions
+
+
+# Run solver
+solutions = solve_cross_roads()
+
+if not solutions:
+    print("No solutions found.")
+else:
+    print(f"Found {len(solutions)} solution(s):\n")
+    for m, CROSS, ROADS, DANGER in solutions:
+        print("Mapping:")
+        for k in sorted(m):
+            print(f"  {k} -> {m[k]}")
+        print(f"\n  {CROSS} + {ROADS} = {DANGER}\n")
