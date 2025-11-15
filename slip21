@@ -1,1 +1,55 @@
+q1
 
+ # define punctuation
+ punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~''' 
+my_str = "Hello!!!, he said ---and went."
+ # To take input from the user
+ # my_str = input("Enter a string: ")
+ # remove punctuation from the string 
+no_punct = ""
+ for char in my_str:
+ if char not in punctuations: 
+no_punct = no_punct + char
+ # display the unpunctuated string 
+print(no_punct)
+
+
+
+q2
+
+from itertools import permutations
+
+def solve_GO_TO_OUT():
+    letters = ('G', 'O', 'T', 'U')
+    digits = '0123456789'
+    solutions = []
+
+    for perm in permutations(digits, len(letters)):
+        m = dict(zip(letters, perm))
+
+        # Leading letters cannot be zero
+        if m['G'] == '0' or m['T'] == '0' or m['O'] == '0':
+            continue
+
+        GO  = int(m['G'] + m['O'])
+        TO  = int(m['T'] + m['O'])
+        OUT = int(m['O'] + m['U'] + m['T'])
+
+        if GO + TO == OUT:
+            solutions.append((m, GO, TO, OUT))
+
+    return solutions
+
+
+# Run solver
+solutions = solve_GO_TO_OUT()
+
+if not solutions:
+    print("No solutions found.")
+else:
+    print(f"Found {len(solutions)} solution(s):\n")
+    for m, GO, TO, OUT in solutions:
+        print("Mapping:")
+        for k in sorted(m):
+            print(f"  {k} -> {m[k]}")
+        print(f"\n  {GO} + {TO} = {OUT}\n")
