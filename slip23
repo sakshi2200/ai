@@ -1,1 +1,66 @@
+q1
+
+def tower_of_hanoi(n, source, auxiliary, destination):
+    if n == 1:
+        print(f"Move disk 1 from {source} to {destination}")
+        return
+
+    # Move n-1 disks from source to auxiliary
+    tower_of_hanoi(n-1, source, destination, auxiliary)
+
+    # Move the nth disk from source to destination
+    print(f"Move disk {n} from {source} to {destination}")
+
+    # Move n-1 disks from auxiliary to destination
+    tower_of_hanoi(n-1, auxiliary, source, destination)
+
+
+# ---- Main Program ----
+num_disks = int(input("Enter number of disks: "))
+print("\nSteps to solve Tower of Hanoi:\n")
+tower_of_hanoi(num_disks, 'A', 'B', 'C')
+
+
+
+q2
+
+# Cryptarithm: SEND + MORE = MONEY
+# Letters involved: S, E, N, D, M, O, R, Y
+
+from itertools import permutations
+
+def solve_send_more_money():
+    letters = ('S','E','N','D','M','O','R','Y')
+    digits = '0123456789'
+    solutions = []
+
+    for perm in permutations(digits, len(letters)):
+        m = dict(zip(letters, perm))
+
+        # Leading letters cannot be zero
+        if m['S'] == '0' or m['M'] == '0':
+            continue
+
+        SEND  = int(m['S'] + m['E'] + m['N'] + m['D'])
+        MORE  = int(m['M'] + m['O'] + m['R'] + m['E'])
+        MONEY = int(m['M'] + m['O'] + m['N'] + m['E'] + m['Y'])
+
+        if SEND + MORE == MONEY:
+            solutions.append((m, SEND, MORE, MONEY))
+
+    return solutions
+
+
+# Run solver
+solutions = solve_send_more_money()
+
+if not solutions:
+    print("No solutions found.")
+else:
+    print(f"Found {len(solutions)} solution(s):\n")
+    for m, SEND, MORE, MONEY in solutions:
+        print("Mapping:")
+        for k in sorted(m):
+            print(f"  {k} -> {m[k]}")
+        print(f"\n  {SEND} + {MORE} = {MONEY}\n")
 
