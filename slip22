@@ -1,1 +1,101 @@
+q1
 
+import math
+
+# Alpha-Beta Pruning function
+def alpha_beta_pruning(depth, nodeIndex, isMax, values, alpha, beta):
+    # If leaf node is reached, return value
+    if depth == 3:
+        return values[nodeIndex]
+
+    if isMax:
+        best = -math.inf
+        
+        # Recur for left and right children
+        for i in range(2):
+            val = alpha_beta_pruning(depth + 1,
+                                     nodeIndex * 2 + i,
+                                     False,
+                                     values,
+                                     alpha,
+                                     beta)
+            best = max(best, val)
+            alpha = max(alpha, best)
+
+            # Pruning step
+            if beta <= alpha:
+                break
+        return best
+
+    else:   # Minimizer
+        best = math.inf
+        
+        for i in range(2):
+            val = alpha_beta_pruning(depth + 1,
+                                     nodeIndex * 2 + i,
+                                     True,
+                                     values,
+                                     alpha,
+                                     beta)
+            best = min(best, val)
+            beta = min(beta, best)
+
+            # Pruning step
+            if beta <= alpha:
+                break
+        return best
+
+
+# ------------ MAIN PROGRAM ------------
+
+# Example leaf node values for a complete binary tree
+values = [3, 5, 6, 9, 1, 2, 0, -1]
+
+print("Leaf node values:", values)
+print("\nResult of Alpha-Beta Pruning:")
+
+result = alpha_beta_pruning(0, 0, True, values, -math.inf, math.inf)
+print("Optimal value:", result)
+
+
+
+
+
+
+
+
+
+
+q2
+
+
+
+ print("Simple Question and Answering Program") 
+print("=====================================")
+ print(" You may ask any one of these questions") 
+print("Hi")
+ print("How are you?") 
+print("Are you working?") 
+print("What is your name?")
+ print("what did you do yesterday?") 
+print("Quit")
+ while True:
+ question = input("Enter one question from above list:") 
+question = question.lower()
+ if question in ['hi']:
+ print("Hello")
+ elif question in ['how are you?','how do you do?']: 
+print("I am fine")
+ elif question in ['are you working?','are you doing any job?']: 
+print("yes. I'am working in KLU")
+ elif question in ['what is your name?']: 
+print("My name is Emilia") 
+priyanka sawale 
+name=input("Enter your name?")
+ print("Nice name and Nice meeting you",name) 
+elif question in ['what did you do yesterday?']:
+ print("I saw Bahubali 5 times")
+ elif question in ['quit']: 
+break
+ else:
+ print("I don't understand what you said")
