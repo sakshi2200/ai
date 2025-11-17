@@ -1,1 +1,90 @@
+q1
+
+class Monkey:
+    def __init__(self):
+        self.position = 0
+        self.has_banana = False
+
+    def move(self):
+        self.position += 1 
+
+    def climb(self):
+        print("Monkey climbs to reach the bananas.")
+
+    def grab_banana(self):
+        if self.position == 10: 
+            self.has_banana = True
+            print("Monkey grabs the banana!")
+        else:
+            print("Bananas are not within reach.")
+
+class Banana:
+    def __init__(self):
+        self.position = 10 # Bananas are placed at position 1
+
+def monkey_banana_problem():
+    monkey = Monkey()
+    banana = Banana()
+
+    print("Monkey starts at position:", monkey.position)
+
+   
+    while monkey.position < banana.position:
+        monkey.move()
+        print("Monkey moves to position:", monkey.position)
+
+   
+    monkey.climb()
+    monkey.grab_banana()
+
+    if monkey.has_banana:
+        print("The monkey successfully got the banana!")
+
+
+monkey_banana_problem()
+
+
+
+
+q2
+
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A','D', 'E'],
+    'C': ['A','F','G'],
+    'D': ['B','H','I'],
+    'E': [],
+    'F': ['C','K'],
+    'G': []
+}
+
+def depth_limited_dfs(node, goal, depth):
+    if depth == 0 and node == goal:
+        return True
+    if depth > 0:
+        for neighbor in graph[node]:
+            if depth_limited_dfs(neighbor, goal, depth - 1):
+                return True
+    return False
+
+def iterative_deepening_dfs(start, goal):
+    depth = 0
+    while True:
+        print(f"Searching at depth: {depth}")
+        found = depth_limited_dfs(start, goal, depth)
+        if found:
+            return True
+        depth += 1
+
+# Main execution
+start_node = 'A'
+goal_node = 'G'
+
+if iterative_deepening_dfs(start_node, goal_node):
+    print(f"Goal node '{goal_node}' found.")
+else:
+    print(f"Goal node '{goal_node}' not found.")
+
+
 
