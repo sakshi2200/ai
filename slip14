@@ -1,1 +1,71 @@
+q1
+
+def sort_sentence(sentence):
+   
+    words = sentence.split()
+   
+    sorted_words = sorted(words)
+    
+    sorted_sentence = ' '.join(sorted_words)
+    
+    return sorted_sentence
+
+
+sentence = input("Enter a sentence: ")
+sorted_sentence = sort_sentence(sentence)
+print("Sorted sentence:", sorted_sentence)
+
+
+
+q2
+
+def print_solution(board):
+    for row in board:
+        print(' '.join('Q' if col else '.' for col in row))
+    print()
+
+def is_safe(board, row, col):
+   
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
+
+   
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+
+    
+    for i, j in zip(range(row, len(board)), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+
+    return True
+
+def solve_n_queens_util(board, col):
+    if col >= len(board):
+        print_solution(board)
+        return True
+
+    res = False
+    for i in range(len(board)):
+        if is_safe(board, i, col):
+            board[i][col] = 1  
+
+            
+            res = solve_n_queens_util(board, col + 1) or res
+
+          
+            board[i][col] = 0 
+
+    return res
+
+def solve_n_queens(n):
+    board = [[0 for _ in range(n)] for _ in range(n)]
+    if not solve_n_queens_util(board, 0):
+        print("No solution exists")
+
+
+n = 8
+solve_n_queens(n)
 
