@@ -8,3 +8,45 @@ month = int(input("Enter month: ")) # Display the calendar
 print("\nCalendar for:", calendar.month_name[month], year) 
 print(calendar.month(year, month))
 
+q2
+
+graph = {
+    1: [2, 3],
+    2: [4],
+    3: [2],
+    4: [5,6],
+    5: [3,7],
+    6: [],
+    7: [6]
+}
+
+def dfs(graph, start, goal, path=None, visited=None):
+    if path is None:
+        path = []
+    if visited is None:
+        visited = set()
+
+    visited.add(start)
+    path.append(start)
+    
+    if start == goal:
+        return path
+    
+    for neighbor in graph[start]:
+        if neighbor not in visited:
+            result = dfs(graph, neighbor, goal, path.copy(), visited)
+            if result:  # If a path to goal is found, return the result
+                return result
+    
+    return None
+
+start_node = 1
+goal_node = 7
+
+path = dfs(graph, start_node, goal_node)
+
+if path:
+    print(f"Path from {start_node} to {goal_node}: {path}")
+else:
+    print(f"No path found from {start_node} to {goal_node}.")
+
