@@ -1,1 +1,85 @@
+q1
+
+
+import random
+
+def objective_function(x):
+    return -x**2 + 4*x
+
+def hill_climbing(starting_point, step_size, max_iterations):
+    current_point = starting_point
+    current_value = objective_function(current_point)
+    
+    for _ in range(max_iterations):
+        neighbor1 = current_point + step_size
+        neighbor2 = current_point - step_size
+        
+        neighbor1_value = objective_function(neighbor1)
+        neighbor2_value = objective_function(neighbor2)
+        
+        if neighbor1_value > current_value:
+            current_point = neighbor1
+            current_value = neighbor1_value
+        elif neighbor2_value > current_value:
+            current_point = neighbor2
+            current_value = neighbor2_value
+        else:
+            print(f"Local maximum found at x = {current_point}, f(x) = {current_value}")
+            break
+    
+    return current_point, current_value
+
+starting_point = random.uniform(-10, 10)  
+step_size = 0.1  # Step size for the search
+max_iterations = 100  # Maximum number of iterations
+
+max_point, max_value = hill_climbing(starting_point, step_size, max_iterations)
+
+print(f"Maximum found at x = {max_point}, f(x) = {max_value}")
+
+
+
+
+q2
+
+graph = {
+    1: [2, 3],
+    2: [1, 4, 5],
+    3: [1, 6],
+    4: [2],
+    5: [2],
+    6: [3, 7],
+    7: [6]
+}
+
+def dfs(graph, start, goal, path=None, visited=None):
+    if path is None:
+        path = []
+    if visited is None:
+        visited = set()
+
+    visited.add(start)
+    path.append(start)
+    
+    if start == goal:
+        return path
+    
+    for neighbor in graph[start]:
+        if neighbor not in visited:
+            result = dfs(graph, neighbor, goal, path.copy(), visited)
+            if result:  # If a path to goal is found, return the result
+                return result
+    
+    return None
+
+start_node = 1
+goal_node = 7
+
+path = dfs(graph, start_node, goal_node)
+
+if path:
+    print(f"Path from {start_node} to {goal_node}: {path}")
+else:
+    print(f"No path found from {start_node} to {goal_node}.")
+
 
