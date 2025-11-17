@@ -1,1 +1,10 @@
+q1
+
+import calendar
+import calendar 
+# Input month and year 
+year = int(input("Enter year: ")) 
+month = int(input("Enter month: ")) # Display the calendar 
+print("\nCalendar for:", calendar.month_name[month], year) 
+print(calendar.month(year, month))
 
