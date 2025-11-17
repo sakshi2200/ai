@@ -1,17 +1,36 @@
+q1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 q2
 
 import math
 
-# Mini-Max function
+
 def minimax(depth, nodeIndex, isMax, values, maxDepth):
-    # If leaf node is reached, return the value
+   
     if depth == maxDepth:
         return values[nodeIndex]
 
     if isMax:
         best = -math.inf
 
-        # Check left and right children
+      
         best = max(best, minimax(depth + 1, nodeIndex * 2, False, values, maxDepth))
         best = max(best, minimax(depth + 1, nodeIndex * 2 + 1, False, values, maxDepth))
         return best
@@ -19,20 +38,17 @@ def minimax(depth, nodeIndex, isMax, values, maxDepth):
     else:
         best = math.inf
 
-        # Check left and right children
+        
         best = min(best, minimax(depth + 1, nodeIndex * 2, True, values, maxDepth))
         best = min(best, minimax(depth + 1, nodeIndex * 2 + 1, True, values, maxDepth))
         return best
 
 
-# ---------------- MAIN PROGRAM ----------------
 
-# Example leaf values (depth = 3 → 8 leaves)
+
 values = [3, 5, 6, 9, 1, 2, 0, -1]
-maxDepth = 3  # height of tree
-
+maxDepth = 3  
 print("Leaf node values:", values)
 result = minimax(0, 0, True, values, maxDepth)
 
 print("\nOptimal value (Mini-Max result):", result)
-
