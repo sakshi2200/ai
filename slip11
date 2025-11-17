@@ -1,1 +1,101 @@
+q1
+
+def means_ends_analysis(start, goal):
+    i, j = 0, 0
+    steps = []
+
+    while i < len(start) or j < len(goal):
+
+        # Case 1: characters match → move ahead
+        if i < len(start) and j < len(goal) and start[i] == goal[j]:
+            steps.append(f"Match '{start[i]}'")
+            i += 1
+            j += 1
+
+        # Case 2: Replace when both exist but differ
+        elif i < len(start) and j < len(goal) and start[i] != goal[j]:
+            steps.append(f"Replace '{start[i]}' with '{goal[j]}'")
+            start = start[:i] + goal[j] + start[i+1:]
+            i += 1
+            j += 1
+
+        # Case 3: Insert character (goal has extra character)
+        elif j < len(goal) and (i >= len(start) or start[i] != goal[j]):
+            steps.append(f"Insert '{goal[j]}' at position {i}")
+            start = start[:i] + goal[j] + start[i:]
+            i += 1
+            j += 1
+
+        # Case 4: Delete extra character in start
+        elif i < len(start):
+            steps.append(f"Delete '{start[i]}' from position {i}")
+            start = start[:i] + start[i+1:]
+
+    return steps
+
+
+# Main program
+start_str = input("Enter the starting string (lowercase): ")
+goal_str = input("Enter the goal string (lowercase): ")
+
+print("\nSteps using Means–Ends Analysis:\n")
+steps = means_ends_analysis(start_str, goal_str)
+
+for step in steps:
+    print(step)
+
+print("\nTransformation complete!")
+
+
+
+q2
+
+from collections import deque
+
+jug1_capacity = 4  
+jug2_capacity = 3  
+target = 2        
+initial_state = (0, 0)
+def bfs_water_jug():
+    queue = deque([initial_state])
+    visited = set()  
+    visited.add(initial_state)
+
+    while queue:
+        jug1, jug2 = queue.popleft()
+        print(f"Current state: Jug1: {jug1} gallons, Jug2: {jug2} gallons")
+        if jug2 == target:
+            print("Goal reached! 2 gallons in the 3-gallon jug.")
+            return True
+
+       
+        next_states = []
+
+       
+        next_states.append((jug1_capacity, jug2))
+       
+        next_states.append((jug1, jug2_capacity))
+       
+        next_states.append((0, jug2))
+        
+        next_states.append((jug1, 0))
+     
+        transfer = min(jug1, jug2_capacity - jug2)
+        next_states.append((jug1 - transfer, jug2 + transfer))
+  
+        transfer = min(jug2, jug1_capacity - jug1)
+        next_states.append((jug1 + transfer, jug2 - transfer))
+
+       
+        for state in next_states:
+            if state not in visited:
+                visited.add(state)
+                queue.append(state)
+
+    print("No solution found.")
+    return False
+
+
+bfs_water_jug()
+
 
